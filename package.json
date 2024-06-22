@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "react-native-elements": "^3.4.3",
+    "react-native-ionicons": "^4.6.5"
+  }
+}
