@@ -4,12 +4,30 @@ import Home from './Home';
 import Settings from './Settings';
 import Cards from './CardsScreen';
 import Statistics from './StatisticsScreen';
+import { color } from './theme';
+import { useContext } from 'react';
+import { ThemeContext } from './ThemeContext';
+
 
 const Tab = createBottomTabNavigator();
 
 export default function MyTabs() {
+
+  const { theme } = useContext(ThemeContext);
+  let activeTheme = color[theme.mode];
+
   return (
     <Tab.Navigator
+    screenOptions={
+      {
+        tabBarStyle: {
+          backgroundColor: activeTheme.tab,
+          borderTopWidth: 0,
+          shadowColor: 'transparent',
+          elevation: 0,
+          height: 90
+        }
+    }}
       tabBarOptions={{
         activeTintColor: '#0164fa',
         inactiveTintColor: '#8d8d96',

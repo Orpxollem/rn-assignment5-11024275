@@ -1,18 +1,30 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import Home from "./Home";
-import Settings from "./Settings";
 import MyTabs from "./AppTabs";
+import { ThemeContext } from "./ThemeContext";
+import React, { useState } from "react";
 
 const Stack = createStackNavigator();
 
 export default function App() {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Home" component={MyTabs} options={{headerShown:false}}/>
-        <Stack.Screen name="Settings" component={Settings} />
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
+    const [theme, setTheme] = useState({ mode: 'light' });
+
+    const changeTheme = (newTheme) => {
+        let mode;
+        if (!newTheme) {
+            const mode = theme.mode === 'light' ? 'dark' : 'light';
+            newTheme = { mode };
+        }
+        setTheme(newTheme);
+    };
+
+    return (
+        <ThemeContext.Provider value={{ theme, changeTheme }}>
+            <NavigationContainer>
+                <Stack.Navigator>
+                    <Stack.Screen name="Home" component={MyTabs} options={{ headerShown: false }} />
+                </Stack.Navigator>
+            </NavigationContainer>
+        </ThemeContext.Provider>
+    );
 }
